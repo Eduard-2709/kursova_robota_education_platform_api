@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 import pymysql
+import dj_database_url
 
 pymysql.install_as_MySQLdb()
 
@@ -28,7 +29,30 @@ SECRET_KEY = 'django-insecure-&j6f%l3eqvzsshulf7axjijvakyz4n_(2p_#of=@m$c3$ma=%4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'Frajer2709.pythonanywhere.com']
+ALLOWED_HOSTS = ['*', 'education_platform_api.onrender.com']
+
+# Альтернатива для Render PostgreSQL (рекомендовано)
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600
+    )
+}
+
+# Статичні файли
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Медіа файли (якщо потрібно)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# CORS (якщо є API)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# CSRF
+CSRF_TRUSTED_ORIGINS = ['https://education_platform_api.onrender.com']
 
 
 # Application definition
