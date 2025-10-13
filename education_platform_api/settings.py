@@ -31,30 +31,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'education_platform_api.onrender.com']
 
-# Альтернатива для Render PostgreSQL (рекомендовано)
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600
-    )
-}
-
-# Статичні файли
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Медіа файли (якщо потрібно)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# CORS (якщо є API)
-CORS_ALLOW_ALL_ORIGINS = True
-
-# CSRF
-CSRF_TRUSTED_ORIGINS = ['https://education_platform_api.onrender.com']
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -129,6 +105,14 @@ DATABASES = {
     }
 }
 
+# Спроба використати DATABASE_URL, якщо він є
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
