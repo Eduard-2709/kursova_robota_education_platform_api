@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Топ-результати{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🏆 Топ-5 студентів тижня</h1>
+    <p class="page-description">
+        Рейтинг студентів з найвищими результатами за період з {{ week_ago }}
+    </p>
+</div>
+
+<div class="card-simple p-4">
+    <div class="table-responsive">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th>Місце</th>
+                    <th>Студент</th>
+                    <th>Середній бал</th>
+                    <th>Кількість тестів</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in top_students %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            {% if forloop.first %}
+                            <span class="badge bg-warning me-2">🥇</span>
+                            {% elif forloop.counter == 2 %}
+                            <span class="badge bg-secondary me-2">🥈</span>
+                            {% elif forloop.counter == 3 %}
+                            <span class="badge bg-danger me-2">🥉</span>
+                            {% else %}
+                            <span class="badge bg-light text-dark me-2">#{{ forloop.counter }}</span>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td>
+                        <strong>{{ student.user__username }}</strong>
+                    </td>
+                    <td>
+                        <span class="badge bg-success fs-6">
+                            {{ student.avg_score|floatformat:1 }}%
+                        </span>
+                    </td>
+                    <td>{{ student.tests_count }}</td>
+                    <td>
+                        {% if forloop.first %}
+                        <span class="badge bg-warning text-dark">Лідер</span>
+                        {% elif forloop.counter <= 3 %}
+                        <span class="badge bg-info">Призер</span>
+                        {% else %}
+                        <span class="badge bg-light text-dark">Учасник</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Ще немає результатів за цей період
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Виправлений блок порад -->
+    <div class="improvement-tips mt-4">
+        <h6>📊 Поради для покращення результатів:</h6>
+        <ul class="mb-0">
+            <li>Регулярно проходьте тести</li>
+            <li>Аналізуйте помилки</li>
+            <li>Виконуйте вікторини дня</li>
+            <li>Практикуйтесь щодня</li>
+        </ul>
+    </div>
+    <!--<div class="mt-4 p-3 bg-light rounded">
+        <h6>📊 Поради для покращення результатів:</h6>
+        <ul class="mb-0">
+            <li>Регулярно проходьте тести</li>
+            <li>Аналізуйте помилки</li>
+            <li>Виконуйте вікторини дня</li>
+            <li>Практикуйтесь щодня</li>
+        </ul>
+    </div>-->
+</div>
+{% endblock %}

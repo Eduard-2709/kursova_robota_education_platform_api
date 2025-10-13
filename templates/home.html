@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}Освітня платформа | Головна{% endblock %}
+
+{% block content %}
+<!-- Заголовок -->
+<div class="page-header">
+    <h1 class="page-title">Ласкаво просимо до нас</h1>
+    <p class="page-description">
+        Проста та ефективна платформа для управління навчальним процесом
+    </p>
+</div>
+
+<!-- Статистика -->
+<div class="stats-container">
+    <div class="stat-item">
+        <div class="stat-number">{{ users_count|default:"156" }}</div>
+        <div class="stat-label">Користувачів</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ courses_count|default:"24" }}</div>
+        <div class="stat-label">Курсів</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ tests_count|default:"89" }}</div>
+        <div class="stat-label">Тестів</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ questions_count|default:"542" }}</div>
+        <div class="stat-label">Питань</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ answers_count|default:"2,168" }}</div>
+        <div class="stat-label">Відповідей</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ results_count|default:"1,247" }}</div>
+        <div class="stat-label">Результатів</div>
+    </div>
+</div>
+
+<!-- Кнопки дій -->
+<div class="card-simple p-4 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h5 class="mb-2">Швидкий початок роботи</h5>
+            <p class="text-muted mb-0">Оберіть дію для початку роботи з платформою</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <div class="d-flex gap-2 justify-content-md-end">
+                <a href="{% url 'user_list' %}" class="btn btn-primary" title="Перейти у вкладку користувачі">
+                    <i class="fas fa-users me-1"></i>Користувачі
+                </a>
+                <a href="{% url 'course_list' %}" class="btn btn-secondary" title="Створити курс">
+                    <i class="fas fa-plus me-1"></i>Курс
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модулі -->
+<h4 class="mb-3">Модулі системи</h4>
+
+<div class="modules-grid">
+    <div class="module-item">
+        <div class="module-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <h5 class="module-title">Користувачі</h5>
+        <p class="module-description">
+            Керування студентами, викладачами та адміністраторами системи
+        </p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'user_list' %}" class="btn btn-primary btn-sm" title="Керувати користувачами">Керувати</a>
+            <a href="{% url 'user_add' %}" class="btn btn-secondary btn-sm" title="Додати користувача">Додати</a>
+        </div>
+    </div>
+
+    <div class="module-item">
+        <div class="module-icon">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h5 class="module-title">Курси</h5>
+        <p class="module-description">
+            Створення та управління навчальними курсами та матеріалами
+        </p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'course_list' %}" class="btn btn-primary btn-sm" title="Керувати курсами">Керувати</a>
+            <a href="{% url 'course_add' %}" class="btn btn-secondary btn-sm" title="Додати курс">Додати</a>
+        </div>
+    </div>
+
+    <div class="module-item">
+        <div class="module-icon">
+            <i class="fas fa-tasks"></i>
+        </div>
+        <h5 class="module-title">Тести</h5>
+        <p class="module-description">
+            Створення тестів, питань та система автоматичної перевірки
+        </p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'test_list' %}" class="btn btn-primary btn-sm" title="Керувати тестами">Керувати</a>
+            <a href="{% url 'test_add' %}" class="btn btn-secondary btn-sm" title="Додати тест">Додати</a>
+        </div>
+    </div>
+
+    <div class="module-item">
+        <div class="module-icon">
+            <i class="fas fa-question-circle"></i>
+        </div>
+        <h5 class="module-title">Питання</h5>
+        <p class="module-description">
+            База питань різних типів для створення тестів та завдань
+        </p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'question_list' %}" class="btn btn-primary btn-sm" title="Керувати питаннями">Керувати</a>
+            <a href="{% url 'question_add' %}" class="btn btn-secondary btn-sm" title="Додати питання">Додати</a>
+        </div>
+    </div>
+
+    <div class="module-item">
+        <div class="module-icon">
+            <i class="fas fa-list-alt"></i>
+        </div>
+        <h5 class="module-title">Відповіді</h5>
+        <p class="module-description">
+            Керування варіантами відповідей та правильними відповідями
+        </p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'answer_list' %}" class="btn btn-primary btn-sm" title="Керувати відповідями">Керувати</a>
+            <a href="{% url 'answer_add' %}" class="btn btn-secondary btn-sm" title="Додати відповідь">Додати</a>
+        </div>
+    </div>
+
+    <div class="module-item">
+        <div class="module-icon">
+            <i class="fas fa-chart-bar"></i>
+        </div>
+        <h5 class="module-title">Результати</h5>
+        <p class="module-description">
+            Аналітика результатів тестування та успішності студентів
+        </p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'result_list' %}" class="btn btn-primary btn-sm" title="Керувати результатами">Керувати</a>
+            <a href="{% url 'result_add' %}" class="btn btn-secondary btn-sm" title="Додати результат">Додати</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

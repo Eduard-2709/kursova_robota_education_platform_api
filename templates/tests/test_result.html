@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Результат тесту{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+    <h1 class="page-title">
+        {% if score >= 70 %}✅{% elif score >= 50 %}⚠️{% else %}❌{% endif %}
+        Результат тесту: {{ test.test_name }}
+    </h1>
+</div>
+
+<div class="text-center mb-4">
+    <div class="stat-item d-inline-block">
+        <div class="stat-number" style="font-size: 3rem;">{{ score|floatformat:2 }}%</div>
+        <div class="stat-label">Ваш результат</div>
+    </div>
+</div>
+
+<div class="card-simple p-4 mb-4">
+    <h4>📊 Детальна інформація</h4>
+    <p><strong>Правильних відповідей:</strong> {{ correct_answers }} з {{ total_questions }}</p>
+    <p><strong>Оцінка:</strong>
+        {% if score >= 90 %}Відмінно!
+        {% elif score >= 70 %}Добре!
+        {% elif score >= 50 %}Задовільно
+        {% else %}Потрібно покращити знання
+        {% endif %}
+    </p>
+</div>
+
+<div class="card-simple p-4">
+    <h4 class="mb-3">📝 Детальний розбір відповідей</h4>
+    {% for answer_data in answers_data %}
+    <div class="mb-3 p-3" style="border-left: 3px solid {% if answer_data.is_correct %}#10b981{% else %}#ef4444{% endif %}; background: #f8fafc;">
+        <h6>{{ forloop.counter }}. {{ answer_data.question_text }}</h6>
+        <p class="mb-1"><strong>Ваша відповідь:</strong> {{ answer_data.selected_answer }}</p>
+        {% if not answer_data.is_correct %}
+        <p class="mb-0 text-success"><strong>Правильна відповідь:</strong> {{ answer_data.correct_answer }}</p>
+        {% else %}
+        <p class="mb-0 text-success">✅ Правильно!</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-4">
+    <a href="{% url 'test_list' %}" class="btn btn-primary">Повернутися до списку тестів</a>
+</div>
+{% endblock %}

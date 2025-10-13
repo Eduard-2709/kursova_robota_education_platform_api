@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика | Освітня платформа{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📊 Статистика та аналітика</h1>
+    <p class="page-description">Детальна інформація про активність на платформі</p>
+</div>
+
+<!-- Загальна статистика -->
+<div class="stats-container">
+    <div class="stat-item">
+        <div class="stat-number">{{ total_users }}</div>
+        <div class="stat-label">Всього користувачів</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ students }}</div>
+        <div class="stat-label">Студентів</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ teachers }}</div>
+        <div class="stat-label">Викладачів</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ total_tests_taken }}</div>
+        <div class="stat-label">Пройдено тестів</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ avg_score }}%</div>
+        <div class="stat-label">Середній бал</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ recent_activity }}</div>
+        <div class="stat-label">Активність за тиждень</div>
+    </div>
+</div>
+
+<!-- Топ студентів -->
+<div class="card-simple p-4 mb-4">
+    <h4 class="mb-3">🏆 Топ-5 студентів</h4>
+    <table class="table data-table">
+        <thead>
+            <tr>
+                <th>Місце</th>
+                <th>Ім'я</th>
+                <th>Середній бал</th>
+                <th>Пройдено тестів</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in top_students %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ student.user__username }}</td>
+                <td><span class="badge bg-success">{{ student.avg_score|floatformat:2 }}%</span></td>
+                <td>{{ student.tests_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Найскладніші тести -->
+<div class="card-simple p-4 mb-4">
+    <h4 class="mb-3">📉 Найскладніші тести</h4>
+    <table class="table data-table">
+        <thead>
+            <tr>
+                <th>Назва тесту</th>
+                <th>Середній бал</th>
+                <th>Спроб</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for test in hardest_tests %}
+            <tr>
+                <td>{{ test.test__test_name }}</td>
+                <td><span class="badge bg-danger">{{ test.avg_score|floatformat:2 }}%</span></td>
+                <td>{{ test.attempts }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Статистика по курсах -->
+<div class="card-simple p-4">
+    <h4 class="mb-3">📚 Статистика по курсах</h4>
+    <table class="table data-table">
+        <thead>
+            <tr>
+                <th>Курс</th>
+                <th>Викладач</th>
+                <th>Кількість тестів</th>
+                <th>Середній бал</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses_stats %}
+            <tr>
+                <td>{{ course.course_name }}</td>
+                <td>{{ course.teacher.username|default:"Не призначено" }}</td>
+                <td>{{ course.tests_count }}</td>
+                <td>
+                    {% if course.avg_score %}
+                    <span class="badge bg-info">{{ course.avg_score|floatformat:2 }}%</span>
+                    {% else %}
+                    <span class="badge bg-secondary">Немає даних</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

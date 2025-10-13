@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-plus me-2"></i>
+                    {% if object %}Редагувати користувача{% else %}Додати користувача{% endif %}
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger" style="border-radius: 10px;">
+                            <strong>Помилки:</strong>
+                            {{ form.errors }}
+                        </div>
+                    {% endif %}
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Ім'я користувача *</label>
+                        <input type="text" name="username" class="form-control" value="{{ form.username.value|default:'' }}" required style="border-radius: 10px; padding: 12px;">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Email *</label>
+                        <input type="email" name="email" class="form-control" value="{{ form.email.value|default:'' }}" required style="border-radius: 10px; padding: 12px;">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Роль *</label>
+                        <select name="role" class="form-select" style="border-radius: 10px; padding: 12px;">
+                            <option value="student" {% if form.role.value == 'student' %}selected{% endif %}>Student</option>
+                            <option value="teacher" {% if form.role.value == 'teacher' %}selected{% endif %}>Teacher</option>
+                            <option value="admin" {% if form.role.value == 'admin' %}selected{% endif %}>Admin</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{% url 'user_list' %}" class="btn btn-secondary">Скасувати</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Зберегти
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

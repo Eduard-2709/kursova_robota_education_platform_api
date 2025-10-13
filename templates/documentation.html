@@ -1,0 +1,688 @@
+{% extends 'base.html' %}
+
+{% block title %}Документація{% endblock %}
+
+{% block content %}
+<!-- Заголовок -->
+<div class="page-header">
+    <h1 class="page-title">Документація та Інструкція</h1>
+    <p class="page-description">
+        Повний посібник з встановлення, запуску та використання платформи StudySpace
+    </p>
+</div>
+
+<div class="row">
+    <!-- Бічна навігація -->
+    <div class="col-lg-3 mb-4">
+        <div class="card-simple">
+            <div class="p-3">
+                <h6 class="mb-3">Зміст документації</h6>
+                <nav class="nav flex-column">
+                    <a class="nav-link mb-2 doc-nav-link" href="#installation">
+                        <i class="fas fa-download me-2"></i>Встановлення
+                    </a>
+                    <a class="nav-link mb-2 doc-nav-link" href="#launch">
+                        <i class="fas fa-play me-2"></i>Запуск
+                    </a>
+                    <a class="nav-link mb-2 doc-nav-link" href="#interface">
+                        <i class="fas fa-desktop me-2"></i>Інтерфейс
+                    </a>
+                    <a class="nav-link mb-2 doc-nav-link" href="#buttons">
+                        <i class="fas fa-mouse-pointer me-2"></i>Кнопки
+                    </a>
+                    <a class="nav-link mb-2 doc-nav-link" href="#database">
+                        <i class="fas fa-database me-2"></i>База даних
+                    </a>
+                    <a class="nav-link mb-2 doc-nav-link" href="#troubleshooting">
+                        <i class="fas fa-wrench me-2"></i>Вирішення проблем
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основний контент -->
+    <div class="col-lg-9 documentation-content">
+        <!-- Встановлення -->
+        <section id="installation" class="mb-5">
+            <div class="card-simple">
+                <div class="p-4">
+                    <h3 class="mb-4 doc-section-title">
+                        <i class="fas fa-download text-primary me-2"></i>Встановлення системи
+                    </h3>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Необхідні компоненти</h5>
+                        <p>Перед встановленням переконайтесь, що у вас встановлено:</p>
+                        <ul class="doc-list">
+                            <li><strong>Python 3.8+</strong> - мова програмування</li>
+                            <li><strong>Django 4.0+</strong> - веб-фреймворк</li>
+                            <li><strong>SQLite/PostgreSQL</strong> - база даних</li>
+                            <li><strong>Pip</strong> - менеджер пакетів Python</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Кроки встановлення</h5>
+                        <ol class="doc-steps">
+                            <li class="doc-step">
+                                <strong>Завантажте код</strong>
+                                <div class="command-block mt-2">
+                                    git clone https://github.com/your-repo/studyspace.git<br>
+                                    cd studyspace
+                                </div>
+                            </li>
+                            <li class="doc-step">
+                                <strong>Створіть віртуальне середовище</strong>
+                                <div class="command-block mt-2">
+                                    python -m venv venv<br>
+                                    source venv/bin/activate  # Linux/Mac<br>
+                                    venv\Scripts\activate     # Windows
+                                </div>
+                            </li>
+                            <li class="doc-step">
+                                <strong>Встановіть залежності</strong>
+                                <div class="command-block mt-2">
+                                    pip install -r requirements.txt
+                                </div>
+                            </li>
+                            <li class="doc-step">
+                                <strong>Налаштуйте базу даних</strong>
+                                <div class="command-block mt-2">
+                                    python manage.py makemigrations<br>
+                                    python manage.py migrate
+                                </div>
+                            </li>
+                            <li class="doc-step">
+                                <strong>Створіть суперкористувача</strong>
+                                <div class="command-block mt-2">
+                                    python manage.py createsuperuser
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Запуск -->
+        <section id="launch" class="mb-5">
+            <div class="card-simple">
+                <div class="p-4">
+                    <h3 class="mb-4 doc-section-title">
+                        <i class="fas fa-play text-primary me-2"></i>Запуск програми
+                    </h3>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Запуск сервера розробки</h5>
+                        <p>Для запуску програми у режимі розробки:</p>
+                        <div class="command-block">
+                            python manage.py runserver
+                        </div>
+                        <p class="doc-note mt-2">Сервер буде доступний за адресою: <code class="doc-code">http://localhost:8000</code></p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Запуск у продакшен режимі</h5>
+                        <p>Для запуску на продакшен сервері:</p>
+                        <div class="command-block">
+                            python manage.py collectstatic<br>
+                            python manage.py runserver 0.0.0.0:8000
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Перший вхід</h5>
+                        <p>Після запуску:</p>
+                        <ol class="doc-list">
+                            <li>Відкрийте браузер та перейдіть за адресою <code class="doc-code">http://localhost:8000</code></li>
+                            <li>Увійдіть з обліковими даними суперкористувача</li>
+                            <li>Створіть перших користувачів у розділі "Користувачі"</li>
+                            <li>Налаштуйте курси та тести</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Інтерфейс -->
+        <section id="interface" class="mb-5">
+            <div class="card-simple">
+                <div class="p-4">
+                    <h3 class="mb-4 doc-section-title">
+                        <i class="fas fa-desktop text-primary me-2"></i>Опис інтерфейсу
+                    </h3>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Головна сторінка</h5>
+                        <p>Головна сторінка містить:</p>
+                        <ul class="doc-list">
+                            <li><strong>Панель навігації</strong> - швидкий доступ до всіх розділів</li>
+                            <li><strong>Статистику системи</strong> - загальні показники платформи</li>
+                            <li><strong>Модулі системи</strong> - блоки з посиланнями на основні функції</li>
+                            <li><strong>Кнопки швидкого доступу</strong> - для початку роботи</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Структура меню</h5>
+                        <div class="table-responsive">
+                            <table class="table doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>Розділ</th>
+                                        <th>Опис</th>
+                                        <th>Доступні ролі</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Головна</strong></td>
+                                        <td>Дашборд з статистикою та швидким доступом</td>
+                                        <td>Всі</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Користувачі</strong></td>
+                                        <td>Керування студентами, викладачами, адміністраторами</td>
+                                        <td>Адміністратор</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Курси</strong></td>
+                                        <td>Створення та управління навчальними курсами</td>
+                                        <td>Адміністратор, Викладач</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Тести</strong></td>
+                                        <td>Створення тестів та призначення їх курсам</td>
+                                        <td>Адміністратор, Викладач</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Питання</strong></td>
+                                        <td>База питань для тестів</td>
+                                        <td>Адміністратор, Викладач</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Результати</strong></td>
+                                        <td>Перегляд та аналіз результатів тестування</td>
+                                        <td>Всі</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Кнопки -->
+        <section id="buttons" class="mb-5">
+            <div class="card-simple">
+                <div class="p-4">
+                    <h3 class="mb-4 doc-section-title">
+                        <i class="fas fa-mouse-pointer text-primary me-2"></i>Опис кнопок та елементів керування
+                    </h3>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Основні кнопки</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="doc-button-card p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <button class="btn btn-primary btn-sm me-3">Керувати</button>
+                                        <strong>Кнопка "Керувати"</strong>
+                                    </div>
+                                    <p class="doc-text mb-0">Перехід до списку об'єктів для перегляду та редагування</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="doc-button-card p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <button class="btn btn-secondary btn-sm me-3">Додати</button>
+                                        <strong>Кнопка "Додати"</strong>
+                                    </div>
+                                    <p class="doc-text mb-0">Створення нового запису в системі</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="doc-button-card p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <button class="btn btn-outline-primary btn-sm me-3"><i class="fas fa-edit"></i></button>
+                                        <strong>Кнопка редагування</strong>
+                                    </div>
+                                    <p class="doc-text mb-0">Редагування існуючого запису</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="doc-button-card p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <button class="btn btn-outline-danger btn-sm me-3"><i class="fas fa-trash"></i></button>
+                                        <strong>Кнопка видалення</strong>
+                                    </div>
+                                    <p class="doc-text mb-0">Видалення запису з підтвердженням</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Статуси та бейджи</h5>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-success">Активний</span>
+                            <span class="badge bg-danger">Адміністратор</span>
+                            <span class="badge bg-warning text-dark">Викладач</span>
+                            <span class="badge bg-info">Студент</span>
+                        </div>
+                        <p class="doc-text">Кольорові бейджи показують статус користувачів та їх ролі в системі</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- База даних -->
+        <section id="database" class="mb-5">
+            <div class="card-simple">
+                <div class="p-4">
+                    <h3 class="mb-4 doc-section-title">
+                        <i class="fas fa-database text-primary me-2"></i>Структура бази даних
+                    </h3>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Основні таблиці</h5>
+                        <div class="table-responsive">
+                            <table class="table doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>Таблиця</th>
+                                        <th>Опис</th>
+                                        <th>Основні поля</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>users</strong></td>
+                                        <td>Користувачі системи</td>
+                                        <td>id, username, email, role, date_joined</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>courses</strong></td>
+                                        <td>Навчальні курси</td>
+                                        <td>course_id, course_name, description, teacher_id</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>tests</strong></td>
+                                        <td>Тести та завдання</td>
+                                        <td>test_id, test_name, course_id, description</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>questions</strong></td>
+                                        <td>Питання для тестів</td>
+                                        <td>question_id, question_text, test_id</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>answers</strong></td>
+                                        <td>Варіанти відповідей</td>
+                                        <td>answer_id, answer_text, question_id, is_correct</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>results</strong></td>
+                                        <td>Результати тестування</td>
+                                        <td>result_id, user_id, test_id, score, passed_at</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Зв'язки між таблицями</h5>
+                        <div class="doc-code-block p-4">
+                            <h6 class="mb-3">Схема зв'язків:</h6>
+                            <div class="code-block">
+                                users (1) ←→ (many) courses (teacher_id)<br>
+                                courses (1) ←→ (many) tests (course_id)<br>
+                                tests (1) ←→ (many) questions (test_id)<br>
+                                questions (1) ←→ (many) answers (question_id)<br>
+                                users (1) ←→ (many) results (user_id)<br>
+                                tests (1) ←→ (many) results (test_id)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Пояснення зв'язків</h5>
+                        <ul class="doc-list">
+                            <li><strong>Один-до-багатьох (1:M):</strong> Один викладач може вести багато курсів</li>
+                            <li><strong>Один-до-багатьох (1:M):</strong> Один курс може містити багато тестів</li>
+                            <li><strong>Один-до-багатьох (1:M):</strong> Один тест може містити багато питань</li>
+                            <li><strong>Один-до-багатьох (1:M):</strong> Одне питання може мати багато варіантів відповідей</li>
+                            <li><strong>Багато-до-багатьох (M:M):</strong> Користувачі мають багато результатів через таблицю results</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Вирішення проблем -->
+        <section id="troubleshooting">
+            <div class="card-simple">
+                <div class="p-4">
+                    <h3 class="mb-4 doc-section-title">
+                        <i class="fas fa-wrench text-primary me-2"></i>Вирішення поширених проблем
+                    </h3>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Помилки при запуску</h5>
+                        <div class="accordion doc-accordion" id="troubleshootingAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#problem1">
+                                        ModuleNotFoundError: No module named 'django'
+                                    </button>
+                                </h2>
+                                <div id="problem1" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Рішення:</strong> Встановіть Django через pip</p>
+                                        <div class="command-block">
+                                            pip install django
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#problem2">
+                                        Port 8000 is already in use
+                                    </button>
+                                </h2>
+                                <div id="problem2" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Рішення:</strong> Використовуйте інший порт</p>
+                                        <div class="command-block">
+                                            python manage.py runserver 8080
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#problem3">
+                                        Database is locked
+                                    </button>
+                                </h2>
+                                <div id="problem3" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Рішення:</strong> Перезапустіть сервер або перевірте наявність інших процесів, що використовують базу даних</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="doc-subtitle">Корисні команди</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="doc-command-card p-3">
+                                    <h6>Очищення бази даних</h6>
+                                    <div class="command-block">
+                                        python manage.py flush
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="doc-command-card p-3">
+                                    <h6>Створення резервної копії</h6>
+                                    <div class="command-block">
+                                        python manage.py dumpdata > backup.json
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+    /* Стилі для документації */
+    .documentation-content {
+        background: transparent;
+    }
+
+    .doc-section-title {
+        color: var(--text);
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 0.5rem;
+    }
+
+    .doc-subtitle {
+        color: var(--text);
+        margin-bottom: 1rem;
+    }
+
+    .doc-text {
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    .doc-note {
+        color: var(--text-light);
+        font-style: italic;
+    }
+
+    .doc-code {
+        background: rgba(79, 70, 229, 0.1);
+        color: var(--primary);
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+    }
+
+    /* Навігація */
+    .doc-nav-link {
+        color: var(--text) !important;
+        padding: 0.5rem 0.75rem !important;
+        margin: 0.125rem 0 !important;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+
+    .doc-nav-link:hover {
+        background: var(--primary-light);
+        color: white !important;
+    }
+
+    /* Списки */
+    .doc-list {
+        color: var(--text-light);
+        padding-left: 1.5rem;
+    }
+
+    .doc-list li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+    }
+
+    .doc-steps {
+        color: var(--text-light);
+        padding-left: 1.5rem;
+    }
+
+    .doc-step {
+        margin-bottom: 1.5rem;
+        padding-left: 0.5rem;
+    }
+
+    .doc-step:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Блоки коду */
+    .command-block {
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-left: 4px solid #10b981;
+        color: #34d399;
+        padding: 1.5rem;
+        border-radius: 0 8px 8px 0;
+        font-family: 'Courier New', monospace;
+        line-height: 1.6;
+        overflow-x: auto;
+        margin: 1rem 0;
+    }
+
+    .code-block {
+        background: #0f172a;
+        border: 1px solid #334155;
+        color: #e2e8f0;
+        padding: 1rem;
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        line-height: 1.6;
+        overflow-x: auto;
+    }
+
+    .doc-code-block {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 8px;
+    }
+
+    /* Картки */
+    .doc-button-card {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .doc-button-card:hover {
+        border-color: #4f46e5;
+        transform: translateY(-2px);
+    }
+
+    .doc-command-card {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        height: 100%;
+    }
+
+    /* Акордеон */
+    .doc-accordion .accordion-item {
+        background: #1e293b;
+        border: 1px solid #334155;
+        color: #e2e8f0;
+    }
+
+    .doc-accordion .accordion-button {
+        background: #334155;
+        color: #f1f5f9;
+        border: none;
+    }
+
+    .doc-accordion .accordion-button:not(.collapsed) {
+        background: #4f46e5;
+        color: #ffffff;
+    }
+
+    .doc-accordion .accordion-body {
+        background: #1e293b;
+        color: #e2e8f0;
+    }
+
+    /* Плавна прокрутка */
+    section {
+        scroll-margin-top: 20px;
+    }
+
+    /* Темна тема - специфічні стилі */
+    body.dark-theme .doc-section-title {
+        color: #f1f5f9;
+        border-bottom-color: #818cf8;
+    }
+
+    body.dark-theme .doc-subtitle {
+        color: #e2e8f0;
+    }
+
+    body.dark-theme .doc-text {
+        color: #cbd5e1;
+    }
+
+    body.dark-theme .doc-note {
+        color: #94a3b8;
+    }
+
+    body.dark-theme .doc-code {
+        background: rgba(129, 140, 248, 0.1);
+        color: #a5b4fc;
+    }
+
+    body.dark-theme .doc-nav-link {
+        color: #cbd5e1 !important;
+    }
+
+    body.dark-theme .doc-nav-link:hover {
+        background: #4f46e5;
+        color: white !important;
+    }
+
+    body.dark-theme .doc-list,
+    body.dark-theme .doc-steps {
+        color: #cbd5e1;
+    }
+
+    body.dark-theme .doc-button-card,
+    body.dark-theme .doc-command-card {
+        background: #334155;
+        border-color: #475569;
+    }
+
+    body.dark-theme .doc-code-block {
+        background: #334155;
+        border-color: #475569;
+    }
+</style>
+
+<script>
+    // Плавна прокрутка до секцій
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Підсвітка активної секції в навігації
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.doc-nav-link');
+
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="fas fa-tasks"></i>
+                    {% if object %}Редагувати тест{% else %}Створити новий тест{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Курс *</label>
+                        {{ form.course }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Назва тесту *</label>
+                        {{ form.test_name }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Опис тесту</label>
+                        {{ form.description }}
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary me-md-2">
+                            <i class="fas fa-save"></i>
+                            {% if object %}Оновити тест{% else %}Створити тест{% endif %}
+                        </button>
+                        <a href="{% url 'test_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Скасувати
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

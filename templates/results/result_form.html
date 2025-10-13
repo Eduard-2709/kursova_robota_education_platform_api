@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-chart-bar"></i>
+                    {% if object %}Редагувати результат{% else %}Додати новий результат{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Користувач *</label>
+                                {{ form.user }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Тест *</label>
+                                {{ form.test }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Оцінка (від 0 до 100) *</label>
+                        {{ form.score }}
+                        <div class="form-text">Введіть оцінку у відсотках (наприклад: 85.50)</div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-dark me-md-2">
+                            <i class="fas fa-save"></i>
+                            {% if object %}Оновити результат{% else %}Створити результат{% endif %}
+                        </button>
+                        <a href="{% url 'result_list' %}" class="btn btn-outline-dark">
+                            <i class="fas fa-arrow-left"></i> Скасувати
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

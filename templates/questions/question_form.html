@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-question-circle"></i>
+                    {% if object %}Редагувати питання{% else %}Додати нове питання{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Тест *</label>
+                        {{ form.test }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Текст питання *</label>
+                        {{ form.question_text }}
+                        <div class="form-text">Введіть повний текст питання</div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-info me-md-2">
+                            <i class="fas fa-save"></i>
+                            {% if object %}Оновити питання{% else %}Створити питання{% endif %}
+                        </button>
+                        <a href="{% url 'question_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Скасувати
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">⚠️ Підтвердження видалення</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Ви впевнені, що хочете видалити відповідь:</p>
+                <div class="alert alert-warning">
+                    <strong>{{ answer.answer_text|truncatewords:15 }}</strong>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'answer_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Скасувати
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Так, видалити
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

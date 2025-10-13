@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-list-alt"></i> Відповіді</h2>
+    <a href="{% url 'answer_add' %}" class="btn btn-success" title="Додати відповідь">
+        <i class="fas fa-plus"></i> Додати відповідь
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if answers %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Текст відповіді</th>
+                        <th>Питання</th>
+                        <th>Тест</th>
+                        <th>Правильна</th>
+                        <th>Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for answer in answers %}
+                    <tr>
+                        <td>{{ answer.answer_id }}</td>
+                        <td>{{ answer.answer_text|truncatewords:10 }}</td>
+                        <td>{{ answer.question.question_text|truncatewords:5 }}</td>
+                        <td>{{ answer.question.test.test_name }}</td>
+                        <td>
+                            {% if answer.is_correct %}
+                                <span class="badge bg-success">Так</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Ні</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{% url 'answer_edit' answer.pk %}" class="btn btn-outline-primary" title="Редагувати відповідь">
+                                    <i class="fas fa-edit"></i> Редагувати
+                                </a>
+                                <a href="{% url 'answer_delete' answer.pk %}" class="btn btn-outline-danger" title="Видалити відповідь">
+                                    <i class="fas fa-trash"></i> Видалити
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center text-muted py-5">
+            <i class="fas fa-list-alt fa-4x mb-3"></i>
+            <h5>Немає відповідей</h5>
+            <p>Створіть першу відповідь для початку роботи</p>
+            <a href="{% url 'answer_add' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-plus"></i> Додати відповідь
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
